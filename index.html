@@ -3,31 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Local Site Checker</title>
+    <title>Local Site Fallback</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
-        .status { font-size: 20px; margin-top: 20px; }
+        /* Global Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f4f7fb;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .container h1 {
+            font-size: 2.5rem;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+
+        .container p {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .footer {
+            font-size: 0.9rem;
+            color: #aaa;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            .container h1 {
+                font-size: 2rem;
+            }
+
+            .container p {
+                font-size: 0.9rem;
+            }
+        }
     </style>
 </head>
 <body>
-    <h1>Checking local server...</h1>
-    <p class="status">Please wait...</p>
-    
+    <div class="container">
+        <h1>Checking Local Site...</h1>
+        <p>If you don't see the content loading here, we'll redirect you to a fallback site.</p>
+        <div class="footer">Powered by Local Site Checker</div>
+    </div>
+
     <script>
-        const localSiteURL = "http:/gaggiuino.local"; // Replace with your local server URL
-        
-        function checkServer() {
-            fetch(localSiteURL, { method: 'HEAD', mode: 'no-cors' })
-                .then(() => {
-                    document.querySelector('.status').textContent = "Server is online! Redirecting...";
-                    setTimeout(() => { window.location.href = localSiteURL; }, 2000);
-                })
-                .catch(() => {
-                    document.querySelector('.status').textContent = "The device is offline. Please turn it on and try again.";
-                });
-        }
-        
-        checkServer();
+        // Check if the local site is available at http://gaggiuino.local
+        fetch('http://gaggiuino.local')
+            .then(response => {
+                if (response.ok) {
+                    // If the local site is available, do nothing (stay on this page)
+                    return;
+                } else {
+                    // If the local site is unavailable, redirect to the fallback GitHub Pages site
+                    window.location.href = 'https://your-username.github.io/local-site-checker/';
+                }
+            })
+            .catch(() => {
+                // If there's an error (e.g., local site is offline), redirect to fallback
+                window.location.href = 'https://your-username.github.io/local-site-checker/';
+            });
     </script>
 </body>
 </html>
