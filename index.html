@@ -4,17 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Local Site Fallback</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500&display=swap" rel="stylesheet">
     <style>
         /* Global Reset */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
+            font-family: 'Orbitron', sans-serif;
         }
 
         body {
-            background-color: #202020;
+            background-color: #111;
             color: white;
             display: flex;
             justify-content: center;
@@ -22,65 +23,96 @@
             height: 100vh;
             text-align: center;
             padding: 20px;
-            font-size: 16px;
+            overflow: hidden;
         }
 
         .container {
             background: #ff6f00; /* Bright orange */
             border-radius: 0;
-            box-shadow: none;
+            box-shadow: 0 0 20px rgba(255, 111, 0, 0.8);
             max-width: 600px;
             width: 100%;
             padding: 40px;
             margin: 10px;
             font-size: 1.2rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
             border: 5px solid #fff;
+            animation: slideIn 1s ease-out;
+            transform-origin: center;
+            transform: scale(0.7);
         }
 
         .container h1 {
-            font-size: 3rem;
+            font-size: 4rem;
             color: #fff;
             margin-bottom: 20px;
             font-weight: bold;
+            animation: fadeInUp 1s ease-out forwards;
         }
 
         .container p {
-            font-size: 1.1rem;
+            font-size: 1.5rem;
             color: #fff;
             margin-bottom: 20px;
+            animation: fadeInUp 1s ease-out 0.5s forwards;
         }
 
-        .footer {
-            font-size: 0.9rem;
+        .container .switch-on {
+            font-size: 2rem;
             color: #fff;
-            margin-top: 20px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            margin-top: 30px;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 1s forwards;
+            transform: translateY(50px);
         }
 
+        @keyframes slideIn {
+            0% {
+                transform: translateY(-100%);
+            }
+            100% {
+                transform: translateY(0);
+                transform: scale(1);
+            }
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Adjustments for mobile */
         @media (max-width: 600px) {
             .container {
                 padding: 30px;
             }
 
             .container h1 {
-                font-size: 2.5rem;
+                font-size: 3rem;
             }
 
             .container p {
-                font-size: 1rem;
+                font-size: 1.2rem;
+            }
+
+            .container .switch-on {
+                font-size: 1.5rem;
             }
         }
-
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Checking Local Site...</h1>
         <p>If the local site becomes available, you'll be redirected to it.</p>
-        <div class="footer">Powered by Local Site Checker</div>
+        <div class="switch-on">Switch on Gaggia</div>
     </div>
 
     <script>
