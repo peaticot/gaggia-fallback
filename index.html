@@ -70,26 +70,28 @@
 <body>
     <div class="container">
         <h1>Checking Local Site...</h1>
-        <p>If you don't see the content loading here, we'll redirect you to a fallback site.</p>
+        <p>If the local site becomes available, you'll be redirected to it.</p>
         <div class="footer">Powered by Local Site Checker</div>
     </div>
 
     <script>
-        // Check if the local site is available at http://gaggiuino.local
-        fetch('http://gaggiuino.local')
-            .then(response => {
-                if (response.ok) {
-                    // If the local site is available, do nothing (stay on this page)
+        // Function to check if the local site is available
+        function checkLocalSite() {
+            fetch('http://gaggiuino.local')
+                .then(response => {
+                    if (response.ok) {
+                        // If the local site is available, redirect to it
+                        window.location.href = 'http://gaggiuino.local';
+                    }
+                })
+                .catch(() => {
+                    // If there's an error (local site is unavailable), stay on the fallback page
                     return;
-                } else {
-                    // If the local site is unavailable, redirect to the fallback GitHub Pages site
-                    window.location.href = 'https://your-username.github.io/local-site-checker/';
-                }
-            })
-            .catch(() => {
-                // If there's an error (e.g., local site is offline), redirect to fallback
-                window.location.href = 'https://your-username.github.io/local-site-checker/';
-            });
+                });
+        }
+
+        // Check the local site every 5 seconds
+        setInterval(checkLocalSite, 5000); // 5000ms = 5 seconds
     </script>
 </body>
 </html>
