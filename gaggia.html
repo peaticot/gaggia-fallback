@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Site Checker</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
+        .status { font-size: 20px; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Checking local server...</h1>
+    <p class="status">Please wait...</p>
+    
+    <script>
+        const localSiteURL = "http://192.168.1.100"; // Replace with your local server URL
+        
+        function checkServer() {
+            fetch(localSiteURL, { method: 'HEAD', mode: 'no-cors' })
+                .then(() => {
+                    document.querySelector('.status').textContent = "Server is online! Redirecting...";
+                    setTimeout(() => { window.location.href = localSiteURL; }, 2000);
+                })
+                .catch(() => {
+                    document.querySelector('.status').textContent = "The device is offline. Please turn it on and try again.";
+                });
+        }
+        
+        checkServer();
+    </script>
+</body>
+</html>
