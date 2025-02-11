@@ -90,8 +90,11 @@
                 });
         }
 
-        // Check the local site every 5 seconds
-        setInterval(checkLocalSite, 5000); // 5000ms = 5 seconds
+        // Wait for the page to load fully and then start checking
+        window.onload = function() {
+            // Start checking immediately after the page has loaded
+            setInterval(checkLocalSite, 5000); // Check every 5 seconds
+        };
     </script>
 </body>
 </html>
